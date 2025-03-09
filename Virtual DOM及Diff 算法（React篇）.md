@@ -150,6 +150,11 @@ Diff过程可分为2种情况：
 
 2.如果容器中存在旧的 DOM， 要先把 Virtual DOM 与旧 DOM 的 Virtual DOM 进行对比后把不同部分更新到容器上（注意这里并非重新挂载） 
 
+Diff过程大致流程图：
+
+![企业微信截图_17415351195620](https://github.com/user-attachments/assets/c00ca5e9-6921-4e05-8a93-faf6636634d4)
+
+
 ### 6. 实现一个精简版React框架（TinyReact）
 
 #### 1.配置.babelrc文件，让 Babel 编译时使用 TinyReact.createElement 方法，否则默认使用 React.createElement

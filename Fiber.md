@@ -37,3 +37,5 @@ requestIdleCallback(function(deadline) {
 1. 构建 Fiber        (可中断)
 2. 提交 Commit   (不可中断)
 
+具体思路：JSX 语法通过 Babel 转化为 React.createElement 方法的调用，React.createElement 方法的调用后返回VDOM对象，采用循环方式从这个VDOM对象中为其下的每个 VDOM 对象创建 Fiber 对象，当所有节点的 Fiber 对象创建完成后，把它们存储在数组中，（接下来进行阶段二）循环该数组，根据当前 Fiber 节点的操作类型，把这个操作应用在真实DOM中。
+

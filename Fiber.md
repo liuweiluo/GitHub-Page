@@ -41,7 +41,7 @@ DOM 初始渲染: virtualDOM -> Fiber -> Fiber[] -> DOM
 
 DOM 更新操作: newFiber vs oldFiber -> Fiber[] -> DOM
 
-具体思路：JSX 语法通过 Babel 转化为 React.createElement 方法的调用，React.createElement 方法的调用后返回VDOM对象，采用循环方式从这个VDOM对象中为其下的每个 VDOM 对象创建 Fiber 对象，当所有节点的 Fiber 对象创建完成后，把它们存储在数组中，（接下来进行阶段二）循环该数组，根据当前 Fiber 节点的操作类型，把这个操作应用在真实DOM中。
+具体思路：JSX 语法通过 Babel 转化为 React.createElement 方法的调用，React.createElement 方法的调用后返回VDOM对象，采用循环方式从这个VDOM对象中为其下的每个 VDOM 对象创建 Fiber 对象，当所有节点的 Fiber 对象创建完成后，把它们存储在数组中，（接下来进行阶段二）循环该数组，根据当前 Fiber 节点的操作类型，把这个操作应用在真实DOM中。由于把所有节点的Fiber对象都存储在数组中，当对于把节点之间的关系抹平了，不清楚谁是谁的父级节点，谁是谁的子级节点了，所以 Fiber对象 还存储其父级节点和子级节点信息，这样才能根据这些信息去构建完整的真实的DOM树。
 
 #### Fiber 对象
 

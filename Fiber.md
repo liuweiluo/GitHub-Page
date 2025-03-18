@@ -37,5 +37,25 @@ requestIdleCallback(function(deadline) {
 1. 构建 Fiber        (可中断)
 2. 提交 Commit   (不可中断)
 
+DOM 初始渲染: virtualDOM -> Fiber -> Fiber[] -> DOM
+
+DOM 更新操作: newFiber vs oldFiber -> Fiber[] -> DOM
+
 具体思路：JSX 语法通过 Babel 转化为 React.createElement 方法的调用，React.createElement 方法的调用后返回VDOM对象，采用循环方式从这个VDOM对象中为其下的每个 VDOM 对象创建 Fiber 对象，当所有节点的 Fiber 对象创建完成后，把它们存储在数组中，（接下来进行阶段二）循环该数组，根据当前 Fiber 节点的操作类型，把这个操作应用在真实DOM中。
 
+#### Fiber 对象
+
+```
+{
+  type         节点类型 (元素, 文本, 组件)(具体的类型)
+  props        节点属性
+  stateNode    节点 DOM 对象 | 组件实例对象
+  tag          节点标记 (对具体类型的分类 hostRoot || hostComponent || classComponent || functionComponent)
+  effects      数组, 存储需要更改的 fiber 对象
+  effectTag    当前 Fiber 要被执行的操作 (新增, 删除, 修改)
+  parent       当前 Fiber 的父级 Fiber
+  child        当前 Fiber 的子级 Fiber
+  sibling      当前 Fiber 的下一个兄弟 Fiber
+  alternate    Fiber 备份 fiber 比对时使用
+}
+```

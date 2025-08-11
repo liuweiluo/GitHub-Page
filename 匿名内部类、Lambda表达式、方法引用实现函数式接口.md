@@ -15,3 +15,49 @@
 <img width="494" height="141" alt="image" src="https://github.com/user-attachments/assets/74ce40dd-3521-4f6d-88d7-94da73e67754" />
 
 - 方法引用是在特定场景下lambda表达式的一种简化表示，可以进一步简化代码的编写使代码更加紧凑简洁，从而减少冗余代码。
+
+## 匿名内部类、Lambda表达式、方法引用实现函数式接口
+```
+        // 1.使用匿名内部类的方式通过函数式接口Runnable中的方法实现对Person类中show方法的调用
+        Person person = new Person("zhangfei", 30);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                person.show();
+            }
+        };
+        runnable.run(); // 没事出来秀一下哦
+
+        System.out.println("-------------------------------------------------------------");
+        // 2.使用lambda表达式的方式实现Person类中show方法的调用
+        Runnable runnable1 = () -> person.show();
+        runnable1.run(); // 没事出来秀一下哦
+
+        System.out.println("-------------------------------------------------------------");
+        // 3.使用方法引用的方式实现Person类中show方法的调用
+        Runnable runnable2 = person::show;
+        runnable2.run();
+
+        System.out.println("-------------------------------------------------------------");
+        // 4.使用匿名内部类的方式通过函数式接口Consumer中的方法来实现Person类中setName方法的调用
+        Consumer<String> consumer = new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                person.setName(s);
+            }
+        };
+        consumer.accept("guanyu");
+        System.out.println("person = " + person); // guanyu 30
+
+        System.out.println("-------------------------------------------------------------");
+        // 5.使用lambda表达式的方式实现Person类中setName方法的调用
+        Consumer<String> consumer1 = s -> person.setName(s);
+        consumer1.accept("liubei");
+        System.out.println("person = " + person); // liubei 30
+
+        System.out.println("-------------------------------------------------------------");
+        // 6.使用方法引用的方式实现Person类中setName方法的调用
+        Consumer<String> consumer2 = person::setName;
+        consumer2.accept("zhangfei");
+        System.out.println("person = " + person); // zhangfei 30
+```
